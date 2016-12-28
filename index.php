@@ -70,6 +70,8 @@ if($urlOrText){
 Enter the url or any string:<br/><br/>
 <input type="text" name="url_text" style="width:80%" value="<?php echo ($urlOrText ? $urlOrText : '');?>"/>
 <br/><br/>
+Select Language
+<br/>
 <input type="radio" name="language" value="hi" <?php if($lang_code == "hi" || !isset($lang_code)) echo "checked";?>> Hindi </input>
 <input type="radio" name="language" value="ta" <?php if($lang_code == "ta") echo "checked";?>> Tamil </input>
 <input type="radio" name="language" value="ml" <?php if($lang_code == "ml") echo "checked";?>> Malayalam </input>
