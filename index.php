@@ -1,5 +1,11 @@
 <?php
+#ini_set('display_errors', 1);
+#ini_set('display_startup_errors', 1);
+#error_reporting(E_ALL);
 header("content-type: text/html; charset=UTF-8");
+require_once("lang_constants.php");
+
+
 $urlOrText = $_REQUEST['url_text'];
 $lang_code = $_REQUEST["language"];
 $matches=FALSE;
@@ -25,7 +31,7 @@ if($urlOrText){
 			echo "Invalid URL";
 		}
 		else{
-			$text = $output;
+			$text = html_entity_decode($output);
 		}
 	}
 	else{
@@ -36,18 +42,18 @@ if($urlOrText){
 	if(!($text === FALSE)){
 		// we now have the text loaded
 		$regex_array = array(
-			"hi" => "#[\x{0900}-\x{097F}]+#u",
-			"ta" => "#[\x{0B80}-\x{0BFF}]+#u",
-			"ml" => "#[\x{0D00}-\x{0D7F}]+#u",
-			"te" => "#[\x{0C00}-\x{0C7F}]+#u",
-			"kn" => "#[\x{0C80}-\x{0CFF}]+#u",
-			"mr" => "#[\x{0900}-\x{097F}]+#u",
-			"or" => "#[\x{0B00}-\x{0B7F}]+#u",
-			"gu" => "#[\x{0A80}-\x{0AFF}]+#u",
-			"bn" => "#[\x{0980}-\x{09FF}]+#u",
-			"as" => "#[\x{0980}-\x{09FF}]+#u",
-			"ur" => "#[\x{0600}-\x{097F}]+#u",
-			"pa" => "#[\x{0A00}-\x{0A7F}]+#u"
+			"hi" => "#[" . hi_CHARS . "]+[" . colon_CHARS . hi_CHARS . "]#u",
+			"ta" => "#[" . ta_CHARS . "]+#u",
+			"ml" => "#[" . ml_CHARS . "]+#u",
+			"te" => "#[" . te_CHARS . "]+#u",
+			"kn" => "#[" . kn_CHARS . "]+#u",
+			"mr" => "#[" . mr_CHARS . "]+#u",
+			"or" => "#[" . or_CHARS . "]+#u",
+			"gu" => "#[" . gu_CHARS . "]+#u",
+			"bn" => "#[" . bn_CHARS . "]+[" . apostrophe_CHARS . "]?[" . bn_CHARS . "]*#u",
+			"as" => "#[" . as_CHARS . "]+[" . apostrophe_CHARS . bn_CHARS . "]*#u",
+			"ur" => "#[" . ur_CHARS . "]+#u",
+			"pa" => "#[" . pa_CHARS . "]+#u"
 		);
 		$regex = $regex_array[$lang_code];
 		
@@ -64,6 +70,23 @@ if($urlOrText){
 } 
 ?>
 <html>
+<head>
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+   border: 1px solid black;
+}
+th {
+    height: 50px;
+}
+th, tr{
+	text-align: center;
+}
+</style>
+</head>
 <body>
 <div style="text-align:center; width:100%">
 <form method="post">
@@ -92,21 +115,75 @@ Select Language
 <?php
 if(!($matches === FALSE)){
 	?>
-	<div style="display: table; width:100%;table-layout: fixed;">
+	<button id="copy-text">Copy</button>
+    <span id="copied-text" style="display: none;">Copied!</span>
+	<table id="text-to-copy" style="width:100%;">
+	<tr>
+	<th>Word</td>
+	<th>Occurences</td>
+	</tr>
 	<?php
 	foreach($matches as $key => $value){
 		?>
-		<div style="display: table-row;">
-		<div style="display: table-cell;text-align:right;"><?php echo $key?></div>
-		<div style="display: table-cell;width:10%;">&nbsp;</div>
-		<div style="display: table-cell;text-align:left;"><?php echo $value?></div>
-		</div>
+		<tr>
+		<td><?php echo $key?></td>
+		<td><?php echo $value?></td>
+		</tr>
 		<?php
 	}
 
 	//print_r($matches);
 	?>
-	</div>
+	</table>
+	<script lang="text/javascript">
+	
+	function selectElementContents(el) {
+        var body = document.body, range, sel;
+        if (document.createRange && window.getSelection) {
+            range = document.createRange();
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            try {
+                range.selectNodeContents(el);
+                sel.addRange(range);
+            } catch (e) {
+                range.selectNode(el);
+                sel.addRange(range);
+            }
+        } else if (body.createTextRange) {
+            range = body.createTextRange();
+            range.moveToElementText(el);
+            range.select();
+        }
+    }
+	
+	// Add click event
+	document.getElementById('copy-text').addEventListener('click', function(e){
+	  e.preventDefault();
+  
+	  // Select the text
+	  selectElementContents(document.getElementById('text-to-copy'));
+  
+	  var copied;
+  
+	  try
+	  {
+		  // Copy the text
+		  copied = document.execCommand('copy');
+	  } 
+	  catch (ex)
+	  {
+		  copied = false;  
+	  }
+  
+	  if(copied)
+	  {
+		// Display the copied text message
+		document.getElementById('copied-text').style.display = 'block';    
+	  }
+  
+	});
+	</script>
 	<?php
 }
 ?>
