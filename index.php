@@ -40,6 +40,7 @@ if($urlOrText){
 	}
 	
 	echo $urlOrText;
+	echo $text;
 	
 	if(!($text === FALSE)){
 		// we now have the text loaded
