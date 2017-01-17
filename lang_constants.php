@@ -13,4 +13,5 @@ define('ur_CHARS', "\x{0600}-\x{097F}");
 define('pa_CHARS', "\x{0A00}-\x{0A7F}");
 define('apostrophe_CHARS', "\x{0027}\x{05F3}\x{2019}");
 define('colon_CHARS', ":");
+define('zero_width_joiner_CHARS', "\x{200D}");
 ?> 
