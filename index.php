@@ -48,7 +48,7 @@ if($urlOrText){
 			"te" => "#[" . te_CHARS . "]+#u",
 			"kn" => "#[" . kn_CHARS . "]+#u",
 			"mr" => "#[" . mr_CHARS . "]+#u",
-			"or" => "#[" . or_CHARS . "]+#u",
+			"or" => "#[" . or_CHARS . "]+[" . or_CHARS . zero_width_joiner_CHARS . "]*[" . or_CHARS . "]+#u",
 			"gu" => "#[" . gu_CHARS . "]+#u",
 			"bn" => "#[" . bn_CHARS . "]+[" . apostrophe_CHARS . "]?[" . bn_CHARS . "]*#u",
 			"as" => "#[" . as_CHARS . "]+[" . apostrophe_CHARS . bn_CHARS . "]*#u",
