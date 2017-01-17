@@ -65,7 +65,7 @@ if($urlOrText){
 			$matches = array_count_values($temp_matches[0]);
 			arsort($matches);
 		}
-		//print_r($matches);
+		print_r($matches);
 	}
 } 
 ?>
@@ -132,7 +132,7 @@ if(!($matches === FALSE)){
 		<?php
 	}
 
-	//print_r($matches);
+	print_r($matches);
 	?>
 	</table>
 	<script lang="text/javascript">
