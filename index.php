@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+#ini_set('display_errors', 1);
+#ini_set('display_startup_errors', 1);
+#error_reporting(E_ALL);
 header("content-type: text/html; charset=UTF-8");
 require_once("lang_constants.php");
 
@@ -25,19 +25,26 @@ if($urlOrText){
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		$output = curl_exec($curl);
+		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		curl_close($curl);
 	
 		if($output === FALSE){
 			echo "Invalid URL";
 		}
-		else{
+		else if($httpcode === 200){
 			$text = html_entity_decode($output);
+		}
+		else{
+			echo $httpcode . "response code obtained";
 		}
 	}
 	else{
 		// this the correct text.
 		$text = $urlOrText;
 	}
+	
+	#echo $urlOrText;
+	#echo $text;
 	
 	if(!($text === FALSE)){
 		// we now have the text loaded
@@ -65,7 +72,7 @@ if($urlOrText){
 			$matches = array_count_values($temp_matches[0]);
 			arsort($matches);
 		}
-		//print_r($matches);
+		#print_r($matches);
 	}
 } 
 ?>
@@ -132,7 +139,7 @@ if(!($matches === FALSE)){
 		<?php
 	}
 
-	//print_r($matches);
+	#print_r($matches);
 	?>
 	</table>
 	<script lang="text/javascript">
