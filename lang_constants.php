@@ -7,7 +7,7 @@ define('kn_CHARS', "\x{0C80}-\x{0CFF}");
 define('mr_CHARS', "\x{0900}-\x{0963}\x{0966}-\x{0972}");
 define('or_CHARS', "\x{0B00}-\x{0B7F}");
 define('gu_CHARS', "\x{0A80}-\x{0AFF}");
-define('bn_CHARS', "\x{0980}-\x{09EF}\x{09FA}");
+define('bn_CHARS', "\x{0980}-\x{09E3}\x{09FA}");
 define('as_CHARS', "\x{0980}-\x{09FF}");
 define('ur_CHARS', "\x{0600}-\x{097F}");
 define('pa_CHARS', "\x{0A00}-\x{0A7F}");
