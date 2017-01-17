@@ -35,7 +35,8 @@ if($urlOrText){
 			$text = html_entity_decode($output);
 		}
 		else{
-			echo $httpcode . "response code obtained";
+			echo $httpcode . " response code obtained";
+			echo $output;
 		}
 	}
 	else{
