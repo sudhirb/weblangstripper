@@ -39,6 +39,8 @@ if($urlOrText){
 		$text = $urlOrText;
 	}
 	
+	echo $urlOrText;
+	
 	if(!($text === FALSE)){
 		// we now have the text loaded
 		$regex_array = array(
